@@ -1,3 +1,4 @@
+import { Suspense } from 'react'
 import { client, urlFor } from '@/lib/sanity'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
@@ -13,6 +14,14 @@ async function getProject(slug: string) {
   )
 }
 
+// Tells Next.js which project pages exist so they can be built ahead of time
+export async function generateStaticParams() {
+  const slugs: { slug: string }[] = await client.fetch(
+    `*[_type == "project" && defined(slug.current)]{ "slug": slug.current }`
+  )
+  return slugs
+}
+
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params
   const project = await getProject(slug)
@@ -22,7 +31,15 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   }
 }
 
-export default async function ProjectPage({ params }: { params: Promise<{ slug: string }> }) {
+export default function ProjectPage({ params }: { params: Promise<{ slug: string }> }) {
+  return (
+    <Suspense fallback={<div className="min-h-screen bg-[#07152b]" />}>
+      <ProjectContent params={params} />
+    </Suspense>
+  )
+}
+
+async function ProjectContent({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params
   const project = await getProject(slug)
 
