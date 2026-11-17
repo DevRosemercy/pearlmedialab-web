@@ -1,0 +1,13 @@
+@import "tailwindcss";
+
+:root {
+  --pearl-dark: #07152b;
+  --pearl-blue: #0a4f9e;
+  --pearl-cyan: #1ba6e8;
+  --pearl-light: #50c8ff;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #333;
+}
