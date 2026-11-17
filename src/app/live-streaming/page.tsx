@@ -2,7 +2,7 @@ import { client, urlFor } from '@/lib/sanity'
 import Link from 'next/link'
 
 async function getLiveStreamingService() {
-  'use cache'
+  ''
   return await client.fetch(`*[_type == "service" && title == "Live Streaming"][0]{
     _id, title, shortDescription, description, image
   }`)

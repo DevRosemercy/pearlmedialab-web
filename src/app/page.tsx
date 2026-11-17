@@ -6,7 +6,7 @@ import RotatingHeadline from '@/components/RotatingHeadline'
 import HeroBackground, { type HeroSlide } from '@/components/HeroBackground'
 
 async function getHomeData() {
-  'use cache'
+  ''
   const settings = await client.fetch(`*[_type == "siteSettings"][0]{
     businessName, tagline, story, showreelUrl, logo,
     heroSlides[]{

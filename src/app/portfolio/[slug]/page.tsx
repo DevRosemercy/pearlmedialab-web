@@ -3,8 +3,7 @@ import { client, urlFor } from '@/lib/sanity'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 
-// Allows this page to load on demand if it can't be fully prebuilt
-export const instant = false
+
 
 export const metadata = {
   title: 'Project | Pearl Media Lab',
@@ -12,7 +11,7 @@ export const metadata = {
 }
 
 async function getProject(slug: string) {
-  'use cache'
+  ''
   return await client.fetch(
     `*[_type == "project" && slug.current == $slug][0]{
       _id, title, slug, client, year, coverImage, gallery, description, videoUrl,

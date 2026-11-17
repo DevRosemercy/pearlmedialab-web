@@ -2,7 +2,7 @@ import { client } from '@/lib/sanity'
 import ContactForm from './ContactForm'
 
 async function getSettings() {
-  'use cache'
+  ''
   return await client.fetch(`*[_type == "siteSettings"][0]{
     businessName, phone, whatsapp, email, address, workingHours, googleMapsUrl,
     socialLinks[]{platform, url}
@@ -10,7 +10,7 @@ async function getSettings() {
 }
 
 async function getServices() {
-  'use cache'
+  ''
   return await client.fetch(`*[_type == "service"] | order(order asc){ title }`)
 }
 

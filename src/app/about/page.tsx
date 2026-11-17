@@ -2,7 +2,7 @@ import { client, urlFor } from '@/lib/sanity'
 import Link from 'next/link'
 
 async function getAboutData() {
-  'use cache'
+  ''
   const settings = await client.fetch(`*[_type == "siteSettings"][0]{
     businessName, tagline, story, mission, logo
   }`)

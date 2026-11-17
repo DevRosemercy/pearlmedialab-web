@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 }
 
 async function getNav() {
-  'use cache'
+  ''
   return await client.fetch(`*[_type == "siteSettings"][0]{
     businessName, logo, phone, email,
     socialLinks[]{platform, url}

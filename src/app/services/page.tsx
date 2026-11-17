@@ -2,7 +2,7 @@ import { client, urlFor } from '@/lib/sanity'
 import Link from 'next/link'
 
 async function getServices() {
-  'use cache'
+  ''
   return await client.fetch(`*[_type == "service"] | order(order asc){
     _id, title, slug, shortDescription, description, image
   }`)
