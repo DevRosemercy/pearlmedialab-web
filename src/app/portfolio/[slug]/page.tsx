@@ -3,6 +3,14 @@ import { client, urlFor } from '@/lib/sanity'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 
+// Allows this page to load on demand if it can't be fully prebuilt
+export const instant = false
+
+export const metadata = {
+  title: 'Project | Pearl Media Lab',
+  description: 'A project by Pearl Media Lab.',
+}
+
 async function getProject(slug: string) {
   'use cache'
   return await client.fetch(
@@ -20,15 +28,6 @@ export async function generateStaticParams() {
     `*[_type == "project" && defined(slug.current)]{ "slug": slug.current }`
   )
   return slugs
-}
-
-export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
-  const { slug } = await params
-  const project = await getProject(slug)
-  return {
-    title: project ? `${project.title} | Pearl Media Lab` : 'Project | Pearl Media Lab',
-    description: project?.description?.substring(0, 160) || '',
-  }
 }
 
 export default function ProjectPage({ params }: { params: Promise<{ slug: string }> }) {
