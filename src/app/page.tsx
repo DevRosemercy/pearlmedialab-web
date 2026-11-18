@@ -1,5 +1,3 @@
-'use cache'
-
 import { client, urlFor } from '@/lib/sanity'
 import Link from 'next/link'
 import CustomCursor from '@/components/CustomCursor'
