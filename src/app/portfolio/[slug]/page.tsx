@@ -3,15 +3,12 @@ import { client, urlFor } from '@/lib/sanity'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 
-
-
 export const metadata = {
   title: 'Project | Pearl Media Lab',
   description: 'A project by Pearl Media Lab.',
 }
 
 async function getProject(slug: string) {
-  ''
   return await client.fetch(
     `*[_type == "project" && slug.current == $slug][0]{
       _id, title, slug, client, year, coverImage, gallery, description, videoUrl,
@@ -43,11 +40,14 @@ async function ProjectContent({ params }: { params: Promise<{ slug: string }> })
 
   if (!project) notFound()
 
+  // Only keep gallery items that actually have an image attached
+  const galleryImages = (project.gallery || []).filter((image: any) => image?.asset)
+
   return (
     <main>
       {/* Hero with cover image */}
       <section className="relative h-[60vh] min-h-[400px] bg-[#07152b]">
-        {project.coverImage && (
+        {project.coverImage?.asset && (
           <img
             src={urlFor(project.coverImage).width(1920).height(1080).url()}
             alt={project.title}
@@ -129,11 +129,11 @@ async function ProjectContent({ params }: { params: Promise<{ slug: string }> })
           )}
 
           {/* Gallery */}
-          {project.gallery && project.gallery.length > 0 && (
+          {galleryImages.length > 0 && (
             <div>
               <h2 className="text-2xl font-bold text-[#07152b] mb-6">Gallery</h2>
               <div className="grid md:grid-cols-2 gap-4">
-                {project.gallery.map((image: any, i: number) => (
+                {galleryImages.map((image: any, i: number) => (
                   <img
                     key={i}
                     src={urlFor(image).width(800).url()}
