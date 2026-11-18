@@ -1,10 +1,11 @@
+'use cache'
+
 import { client, urlFor } from '@/lib/sanity'
 import Link from 'next/link'
 import CustomCursor from '@/components/CustomCursor'
 import Showreel from '@/components/Showreel'
 
 async function getHomeData() {
-  'use cache'
   const settings = await client.fetch(`*[_type == "siteSettings"][0]{
     businessName, tagline, story, showreelUrl, logo
   }`)
@@ -20,7 +21,6 @@ async function getHomeData() {
 export default async function Home() {
   const { settings, services, projects } = await getHomeData()
 
-  // Clean truncation of the story text
   const storyExcerpt = settings?.story 
     ? settings.story.length > 250 
       ? settings.story.substring(0, 250).split(' ').slice(0, -1).join(' ') + '...'
@@ -82,7 +82,7 @@ export default async function Home() {
         </div>
       </div>
 
-      {/* ─── STORY (Mobile Optimized) ─── */}
+      {/* ─── STORY ─── */}
       <section className="py-24 px-6 bg-[#f8fbff]">
         <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-12 md:gap-16 items-center">
           <div>
@@ -99,7 +99,6 @@ export default async function Home() {
             </Link>
           </div>
           
-          {/* Responsive Image Box */}
           <div className="relative w-full aspect-square md:aspect-auto md:h-[500px] bg-[#07152b] rounded-3xl overflow-hidden flex items-center justify-center shadow-2xl">
              {settings?.logo ? (
                 <img src={urlFor(settings.logo).height(400).url()} alt="Pearl Media" className="w-3/4 object-contain drop-shadow-2xl" />
@@ -107,7 +106,6 @@ export default async function Home() {
                 <div className="text-white/20 text-9xl font-bold">P</div>
              )}
              
-             {/* Floating Badge (Fixed for mobile) */}
              <div className="absolute bottom-4 right-4 md:-bottom-6 md:-right-6 bg-[#1ba6e8] text-white p-4 md:p-6 rounded-full w-24 h-24 md:w-32 md:h-32 flex flex-col items-center justify-center shadow-xl z-10 rotate-12">
               <span className="text-lg md:text-3xl font-bold text-center leading-none">Premium</span>
               <span className="text-[10px] md:text-xs font-semibold uppercase tracking-wider text-center mt-1">Quality<br/>Production</span>
