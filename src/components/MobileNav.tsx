@@ -8,6 +8,7 @@ const LINKS = [
   { href: '/about', label: 'About' },
   { href: '/services', label: 'Services' },
   { href: '/portfolio', label: 'Portfolio' },
+  { href: '/gallery', label: 'Gallery' },
   { href: '/live-streaming', label: 'Live Streaming' },
   { href: '/contact', label: 'Contact' },
 ]
@@ -17,8 +18,8 @@ export default function MobileNav() {
 
   return (
     <>
-      {/* Desktop links */}
-      <ul className="hidden md:flex gap-8 text-sm font-medium text-gray-700">
+      {/* Wide screens: links in one row */}
+      <ul className="hidden lg:flex gap-6 xl:gap-8 whitespace-nowrap text-sm font-medium text-gray-700">
         {LINKS.map((l) => (
           <li key={l.href}>
             <Link href={l.href} className="hover:text-[#1ba6e8] transition">
@@ -28,10 +29,10 @@ export default function MobileNav() {
         ))}
       </ul>
 
-      {/* Phone menu button */}
+      {/* Phones and small laptops: menu button */}
       <button
         type="button"
-        className="md:hidden p-2 -mr-2 text-[#07152b]"
+        className="lg:hidden p-2 -mr-2 text-[#07152b]"
         aria-label={open ? 'Close menu' : 'Open menu'}
         aria-expanded={open}
         onClick={() => setOpen(!open)}
@@ -45,9 +46,9 @@ export default function MobileNav() {
         </svg>
       </button>
 
-      {/* Phone dropdown */}
+      {/* Dropdown */}
       {open && (
-        <div className="md:hidden absolute left-0 right-0 top-full bg-white border-b border-gray-100 shadow-lg">
+        <div className="lg:hidden absolute left-0 right-0 top-full bg-white border-b border-gray-100 shadow-lg">
           <ul className="flex flex-col px-6 py-2">
             {LINKS.map((l) => (
               <li key={l.href} className="border-b border-gray-100 last:border-0">

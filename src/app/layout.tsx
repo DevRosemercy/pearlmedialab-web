@@ -24,33 +24,22 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   return (
     <html lang="en">
       <body className="antialiased">
-        <header className="sticky top-0 z-50 bg-white shadow-sm border-b border-gray-100 relative">
-          <nav className="max-w-6xl mx-auto flex items-center justify-between px-6 py-4">
-            <Link href="/" className="flex items-center gap-3">
+        <header className="sticky top-0 z-50 bg-white shadow-sm border-b border-gray-100">
+          <nav className="max-w-6xl mx-auto flex items-center justify-between px-4 md:px-6 py-3 md:py-4">
+            <Link href="/" className="flex items-center gap-2 md:gap-3 min-w-0">
               {nav?.logo && (
                 <img
                   src={urlFor(nav.logo).height(50).url()}
                   alt={nav.businessName || 'Pearl Media Lab'}
-                  className="h-10"
+                  className="h-8 md:h-10 shrink-0"
                 />
               )}
-              <span className="font-bold text-[#07152b] text-lg">
+              <span className="font-bold text-[#07152b] text-base md:text-lg truncate">
                 {nav?.businessName || 'Pearl Media Lab'}
               </span>
             </Link>
 
-            {/* Desktop nav — hidden on mobile */}
-            <ul className="hidden md:flex gap-6 md:gap-8 text-sm font-medium text-gray-700">
-              <li><Link href="/" className="hover:text-[#1ba6e8] transition">Home</Link></li>
-              <li><Link href="/about" className="hover:text-[#1ba6e8] transition">About</Link></li>
-              <li><Link href="/services" className="hover:text-[#1ba6e8] transition">Services</Link></li>
-              <li><Link href="/portfolio" className="hover:text-[#1ba6e8] transition">Portfolio</Link></li>
-              <li><Link href="/gallery" className="hover:text-[#1ba6e8] transition">Gallery</Link></li>
-              <li><Link href="/live-streaming" className="hover:text-[#1ba6e8] transition">Live Streaming</Link></li>
-              <li><Link href="/contact" className="hover:text-[#1ba6e8] transition">Contact</Link></li>
-            </ul>
-
-            {/* Mobile nav — hamburger menu */}
+            {/* Links on wide screens, menu button on phones and small laptops */}
             <MobileNav />
           </nav>
         </header>
@@ -66,7 +55,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
             <div>
               <h4 className="font-semibold mb-3 text-[#50c8ff]">Contact</h4>
               <p className="text-gray-300 text-sm">{nav?.phone}</p>
-              <p className="text-gray-300 text-sm">{nav?.email}</p>
+              <p className="text-gray-300 text-sm break-all">{nav?.email}</p>
             </div>
             <div>
               <h4 className="font-semibold mb-3 text-[#50c8ff]">Follow</h4>
